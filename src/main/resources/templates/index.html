@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form th:action="@{/printMoreRecipes}" method="get">
+	<p>How many recipes do you want to be displayed?</p>
+	<input type="number" name="numOfRecipes" id="numOfRecipes">
+	<p>Are there any tags?</p>
+	
+	<select name="tags" id="tags">
+	<option value="breakfast">Breakfast</option>
+	<option value="lunch">Lunch</option>
+	<option value="dinner">Dinner</option>
+	</select>
+	
+	<button type="submit">submit</button>
+</form>
+
+
+<div th:each="r : ${recipeList}">
+<p th:text="${r.toString}"></p>
+</div>
+
+</body>
+</html>
