@@ -12,9 +12,7 @@
 	<p>Are there any tags?</p>
 	
 	<select name="tags" id="tags">
-	<option value="breakfast">Breakfast</option>
-	<option value="lunch">Lunch</option>
-	<option value="dinner">Dinner</option>
+	 <option th:each="tag : ${tagList}" th:value="${tag}" th:text="${tag}"></option>
 	</select>
 	
 	<button type="submit">submit</button>
@@ -22,7 +20,7 @@
 
 
 <div th:each="r : ${recipeList}">
-<p th:text="${r.toString}"></p>
+<a th:text="${r.toString}" th:href="@{/recipeInfo(id=${r.id})}"></a>
 </div>
 
 </body>

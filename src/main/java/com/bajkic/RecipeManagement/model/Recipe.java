@@ -2,11 +2,13 @@ package com.bajkic.RecipeManagement.model;
 
 public class Recipe {
 	
+	private Long id;
 	private String name;
 	private String slug;
 	private Long numOfServings;
 	private Long cookTimeMinutes;
 	private Long prepTimeMinutes;
+	
 	public Recipe(String name,String slug,Long numOfServings,Long cookTimeMinutes,Long prepTimeMinutes) {
 		this.name=name;
 		this.slug=slug;
@@ -16,6 +18,19 @@ public class Recipe {
 	}
 	
 	
+	
+	public Recipe(Long id, String name, String slug, Long numOfServings, Long cookTimeMinutes, Long prepTimeMinutes) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.slug = slug;
+		this.numOfServings = numOfServings;
+		this.cookTimeMinutes = cookTimeMinutes;
+		this.prepTimeMinutes = prepTimeMinutes;
+	}
+
+
+
 	public void setName(String name) {
 		this.name=name;
 	}
@@ -50,7 +65,9 @@ public class Recipe {
 	public Long getPrepTime() {
 		return prepTimeMinutes;
 	}
-
+	public Long getId() {
+		return id;
+	}
 
 	@Override
 	public String toString() {
