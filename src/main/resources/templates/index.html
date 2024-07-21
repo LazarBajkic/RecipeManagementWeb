@@ -11,13 +11,15 @@
 	<input type="number" name="numOfRecipes" id="numOfRecipes">
 	<p>Are there any tags?</p>
 	
+	<p>Enter the recipe name</p>
+	<input type="text" name="recipeName" id="recipeName">
+	
 	<select name="tags" id="tags">
 	 <option th:each="tag : ${tagList}" th:value="${tag}" th:text="${tag}"></option>
 	</select>
-	
-	<button type="submit">submit</button>
+		
+	<button type="submit">Submit</button>
 </form>
-
 
 <div th:each="r : ${recipeList}">
 <a th:text="${r.toString}" th:href="@{/recipeInfo(id=${r.id})}"></a>

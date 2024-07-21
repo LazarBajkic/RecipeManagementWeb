@@ -7,7 +7,16 @@
 <body>
 
 	<div th:each="rd : ${recipeDetails}">
-		<p th:text="${rd.toString}"></p>	
+		<p th:text="${rd.toString}"></p>
+	</div>
+	
+	<div th:each="ingred : ${ingredients}">
+		<p th:text="${ingred}"></p>
+		<button th:action="@{/addToShoppingList(ingredient=${ingred})}">Add</button>
+	</div>
+
+	<div th:each="tip : ${tipsList}">
+		<p th:text="${tip.toString}">
 	</div>
 
 </body>

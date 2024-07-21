@@ -71,8 +71,8 @@ public class Recipe {
 
 	@Override
 	public String toString() {
-		return "Name=" + name + ", Slug=" + slug + ", Servings=" + numOfServings + ", Cook time (minutes)="
-				+ cookTimeMinutes + ", Prep time (minutes)=" + prepTimeMinutes;
+		return "Name=" + name + "\n\n" + slug + "\n\n Servings=" + numOfServings + "\n\n Cook time (minutes)="
+				+ cookTimeMinutes + "\n\n Prep time (minutes)=" + prepTimeMinutes;
 	}
 	
 }

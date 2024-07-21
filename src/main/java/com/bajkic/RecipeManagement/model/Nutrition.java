@@ -46,8 +46,8 @@ public class Nutrition {
 
 		@Override
 		public String toString() {
-			return "Nutrition [calories=" + calories + ", carbohydrates=" + carbohydrates + ", fat=" + fat + ", fiber="
-					+ fiber + ", protein=" + protein + ", sugar=" + sugar + "]";
+			return "Calories=" + calories + "\n Carbohydrates=" + carbohydrates + "\n Fat=" + fat + "\n Fiber="
+					+ fiber + "\n Protein=" + protein + "\n Sugar=" + sugar;
 		}
 	    
 	    
