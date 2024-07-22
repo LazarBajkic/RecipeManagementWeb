@@ -5,13 +5,15 @@ import java.util.List;
 
 public class RecipeDetails {
 	
+	private Long id;
 	private Recipe recipe;
 	private Nutrition nutrition;
 	private HashMap<Long,String> instructions;
 	private List<String> ingredients;
 	
-	public RecipeDetails(Recipe recipe, Nutrition nutrition, HashMap<Long, String> instructions,List<String> ingredients) {
+	public RecipeDetails(Long id,Recipe recipe, Nutrition nutrition, HashMap<Long, String> instructions,List<String> ingredients) {
 		super();
+		this.id=recipe.getId();
 		this.recipe = recipe;
 		this.nutrition = nutrition;
 		this.instructions = instructions;

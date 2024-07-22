@@ -128,7 +128,7 @@ public class APIConnection {
 		
 		List<String> ingredients = getIngredients(id);
 		
-		RecipeDetails rd = new RecipeDetails(r,nutrition,instructionsMap,ingredients);
+		RecipeDetails rd = new RecipeDetails(r.getId(),r,nutrition,instructionsMap,ingredients);
 		return rd;
 	}
 	
@@ -172,7 +172,7 @@ public class APIConnection {
 	public List<Tip> getTips(Long id) throws IOException, InterruptedException, ParseException{
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://tasty.p.rapidapi.com/tips/list?from=0&size=30&id=3562"))
-				.header("x-rapidapi-key", "8c120bae91msh017df25df0e2e04p16d914jsna156411e1f7b")
+				.header("x-rapidapi-key", yourKey)
 				.header("x-rapidapi-host", "tasty.p.rapidapi.com")
 				.method("GET", HttpRequest.BodyPublishers.noBody())
 				.build();

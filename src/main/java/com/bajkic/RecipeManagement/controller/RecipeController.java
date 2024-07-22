@@ -1,6 +1,7 @@
 package com.bajkic.RecipeManagement.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -18,6 +19,8 @@ import com.bajkic.RecipeManagement.model.Tip;
 public class RecipeController {
 
 	APIConnection APIc;
+	List<String> shoppingList = new ArrayList<>();
+	List<String> comments = new ArrayList<>();
 	
 	@GetMapping("/")
 	public ModelAndView testFunc() throws IOException, InterruptedException, ParseException {
@@ -50,10 +53,37 @@ public class RecipeController {
 		mav.addObject("recipeDetails", rd);
 		mav.addObject("tipsList",tipsList);
 		mav.addObject("ingredients", ingredients);
+		mav.addObject("recipeId", id);
 		return mav;
 	}
+	
 	@GetMapping("/addToShoppingList")
-	public void check(@RequestParam ("ingredient") String ingredient) {
-		System.out.println(ingredient);
+	public ModelAndView check(@RequestParam ("ingredient") String ingredient,@RequestParam ("id") Long id) throws IOException, InterruptedException, ParseException, ExecutionException {
+		ModelAndView mav = printRecipeDetails(id);
+		shoppingList.add(ingredient);
+		return mav;
+	}
+	
+	@GetMapping("/Account")
+	public ModelAndView goToAccount() {
+		ModelAndView mav = new ModelAndView("AccountPage");
+		mav.addObject("shoppingList", shoppingList);
+		return mav;
+	}
+	
+	@GetMapping("/removeFromShoppingList")
+	public ModelAndView removeFromList(@RequestParam ("item") String item) {
+		shoppingList.remove(item);
+		ModelAndView mav = goToAccount();
+		return mav;
+	}
+	
+	@GetMapping("/addComment")
+	public ModelAndView addComment(@RequestParam ("commentBody") String commentBody,@RequestParam ("id") Long id) throws IOException, InterruptedException, ParseException, ExecutionException {
+		ModelAndView mav = printRecipeDetails(id);
+		comments.add(commentBody);
+		System.out.println(comments);
+		mav.addObject("commentList",comments);
+		return mav;
 	}
 }

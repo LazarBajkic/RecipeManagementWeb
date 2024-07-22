@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<div th:each="listItem : ${shoppingList}">
+		<p th:text="${listItem}"></p>
+		<a th:href="@{/removeFromShoppingList(item=${listItem})}">
+		<button>X</button>
+		</a>
+	</div>
+	
+</body>
+</html>
