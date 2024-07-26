@@ -10,6 +10,12 @@
 		<p th:text="${rd.toString}"></p>
 	</div>
 	
+	<form th:action="@{/addToFavorites}">
+    <input type="hidden" name="recipe" th:value="${recipeDetails.getRecipeName}" />
+    <input type="hidden" name="id" th:value="${recipeId}" />
+	<button>Favorites</button>
+</form>
+	
 	<div th:each="ingred : ${ingredients}">
 		<p th:text="${ingred}"></p>
 		<a th:href="@{/addToShoppingList(ingredient=${ingred},id=${recipeId})}">
@@ -28,7 +34,7 @@
 </form>
 
 	<div th:each="comment : ${commentList}">
-		<p th:text="${comment}"></p>
+		<p th:text="${comment.toString}"></p>
 	</div>
 
 </body>

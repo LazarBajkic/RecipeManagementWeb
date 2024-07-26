@@ -6,6 +6,8 @@
 </head>
 <body>
 
+<p th:text="'Welcome ' +${username}">
+
 <form th:action="@{/printMoreRecipes}" method="get">
 	<p>How many recipes do you want to be displayed?</p>
 	<input type="number" name="numOfRecipes" id="numOfRecipes">

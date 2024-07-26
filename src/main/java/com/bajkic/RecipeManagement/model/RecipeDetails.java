@@ -20,6 +20,10 @@ public class RecipeDetails {
 		this.ingredients=ingredients;
 	}
 	
+	public String getRecipeName() {
+		return this.recipe.getName();
+	}
+	
 	public Recipe getRecipe() {
 		return recipe;
 	}

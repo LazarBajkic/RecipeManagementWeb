@@ -13,5 +13,9 @@
 		</a>
 	</div>
 	
+	<div th:each="recipe : ${favorites}">
+	<p th:text="${recipe.toString}"></p>
+	</div>
+	
 </body>
 </html>
