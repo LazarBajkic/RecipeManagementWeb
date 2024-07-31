@@ -13,9 +13,13 @@
 		</a>
 	</div>
 	
-	<div th:each="recipe : ${favorites}">
-	<p th:text="${recipe.toString}"></p>
-	</div>
+	  <div th:each="favorite : ${favorites}">
+        <p th:text="${favorite.name}">Recipe ID</p>
+        <form th:action="@{/removeFavorite}" method="post">
+            <input type="hidden" th:name="favoriteId" th:value="${favorite.id}"/>
+            <button type="submit">Remove</button>
+        </form>
+    </div>
 	
 </body>
 </html>

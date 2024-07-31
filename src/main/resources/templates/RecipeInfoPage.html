@@ -27,15 +27,18 @@
 		<p th:text="${tip.toString}">
 	</div>
 	
-	<form th:action="@{/addComment}" method="get">
-    <input type="hidden" name="id" th:value="${recipeId}" />
-    <input type="text" id="commentBody" name="commentBody" required />
-    <button type="submit">Add</button>
-</form>
+	<form th:action="@{/addComment}" method="post">
+    	<input type="hidden" name="id" th:value="${recipeId}" />
+    	<input type="text" id="commentBody" name="commentBody" required />
+    	<button type="submit">Add</button>
+	</form>
 
-	<div th:each="comment : ${commentList}">
-		<p th:text="${comment.toString}"></p>
-	</div>
-
+  <div th:if="${noCommentsMessage}">
+        <p th:text="${noCommentsMessage}"></p>
+    </div>
+    <div th:each="comment : ${commentList}">
+        <p th:text="${comment.toString}"></p>
+    </div>
+    
 </body>
 </html>

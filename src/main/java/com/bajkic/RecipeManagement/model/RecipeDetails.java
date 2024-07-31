@@ -37,6 +37,11 @@ public class RecipeDetails {
 	public List<String> getIngredients() {
 		return ingredients;
 	}
+	
+
+	public Long getId() {
+		return id;
+	}
 
 	@Override
 	public String toString() {

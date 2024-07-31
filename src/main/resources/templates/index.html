@@ -6,28 +6,44 @@
 </head>
 <body>
 
-<p th:text="'Welcome ' +${username}">
-
+<div class="RecipeQuery">
 <form th:action="@{/printMoreRecipes}" method="get">
+	<div>
+		
 	<p>How many recipes do you want to be displayed?</p>
 	<input type="number" name="numOfRecipes" id="numOfRecipes">
+	
 	<p>Are there any tags?</p>
-	
-	<p>Enter the recipe name</p>
-	<input type="text" name="recipeName" id="recipeName">
-	
 	<select name="tags" id="tags">
-	 <option th:each="tag : ${tagList}" th:value="${tag}" th:text="${tag}"></option>
+	 	<option th:each="tag : ${tagList}" th:value="${tag}" th:text="${tag}"></option>
 	</select>
+	
+	</div>
+	
+	<div>
+		<p>Enter the recipe name</p>
+		<input type="text" name="recipeName" id="recipeName">
+		<button type="submit">Submit</button>
+	</div>
 		
-	<button type="submit">Submit</button>
+
 </form>
 
-<div th:each="r : ${recipeList}">
-<a th:text="${r.toString}" th:href="@{/recipeInfo(id=${r.id})}"></a>
+<p th:text="'Welcome ' +${username}">
+
 </div>
 
-<a th:href="@{/Account}">Account</a>
+	<div th:each="r : ${recipeList}">
+		<a th:text="${r.toString}" th:href="@{/recipeInfo(id=${r.id})}"></a>
+	</div>
+
+  <div th:if="${username} != 'anonymousUser'">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+	<a th:href="@{/Account}">Account</a>
+  </div>
+
 
 </body>
 </html>

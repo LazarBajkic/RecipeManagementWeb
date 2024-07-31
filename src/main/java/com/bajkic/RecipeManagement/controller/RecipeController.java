@@ -1,12 +1,13 @@
 package com.bajkic.RecipeManagement.controller;
 
+
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class RecipeController {
 
 	APIConnection APIc;
 	List<String> shoppingList = new ArrayList<>();
-	Optional<Comment> comments;
-	Optional<FavoriteRecipe> favouriteRecipes;
+	List<Comment> comments;
+	List<FavoriteRecipe> favouriteRecipes;
 	
 	@Autowired
 	FavoriteRecipesRepo FRP;
@@ -64,7 +65,10 @@ public class RecipeController {
 		APIc = new APIConnection();
 		List<Recipe> r = APIc.getRecipes(numOfRecipes,tags,recipeName);
 		List<String> tagList = APIc.getTags();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); 
 		mav.addObject("recipeList", r);
+		mav.addObject("username", username);
 		mav.addObject("tagList",tagList);
 		return mav;
 	}
@@ -75,18 +79,30 @@ public class RecipeController {
 		RecipeDetails rd = APIc.getRecipeInfo(id);
 		List<Tip> tipsList = APIc.getTips(id);
 		List<String> ingredients = rd.getIngredients();
-		comments = repo.findById(id);
+		comments = repo.getCommentsById(id);
+        if (comments.isEmpty()) {
+            mav.addObject("noCommentsMessage", "No comments yet");
+        } else {
+            mav.addObject("commentList", comments);
+        }
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName(); 
+        
+		if (authentication == null || !authentication.isAuthenticated() || "anonymousUser".equals(authentication.getName())) {
+            mav.setViewName("redirect:/login");
+            return mav;
+        }
+	
+		
+		String username = authentication.getName(); 
 		mav.addObject("recipeDetails", rd);
 		mav.addObject("tipsList",tipsList);
 		mav.addObject("ingredients", ingredients);
 		mav.addObject("recipeId", id);
 		mav.addObject("username", username);
-		mav.addObject("commentList",comments);
 		return mav;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/addToShoppingList")
 	public ModelAndView check(@RequestParam ("ingredient") String ingredient,@RequestParam ("id") Long id) throws IOException, InterruptedException, ParseException, ExecutionException {
 		ModelAndView mav = printRecipeDetails(id);
@@ -94,13 +110,14 @@ public class RecipeController {
 		return mav;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/Account")
 	public ModelAndView goToAccount() {
 		ModelAndView mav = new ModelAndView("AccountPage");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName(); 
 		User user = uRep.findByUsername(username);
-		favouriteRecipes=FRP.findById(user.getId());
+		favouriteRecipes=FRP.getByUserID(user.getId());
 		mav.addObject("favorites", favouriteRecipes);		
 		mav.addObject("shoppingList", shoppingList);
 		return mav;
@@ -113,23 +130,56 @@ public class RecipeController {
 		return mav;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/addComment")
 	public ModelAndView addComment(@RequestParam ("commentBody") String commentBody,@RequestParam ("id") Long id) throws IOException, InterruptedException, ParseException, ExecutionException {
 		ModelAndView mav = printRecipeDetails(id);
-		Comment c = new Comment(id,"Name",commentBody);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); 
+		Comment c = new Comment(id,username,commentBody);
 		repo.save(c);
 		return mav;
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/addToFavorites")
 	public ModelAndView addToFavorites(@RequestParam ("recipe") String rd,@RequestParam("id") Long id) throws IOException, InterruptedException, ParseException, ExecutionException {
 		ModelAndView mav = printRecipeDetails(id);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName(); 
 		User user = uRep.findByUsername(username);
-		FavoriteRecipe fr = new FavoriteRecipe(user.getId(),rd);
+		FavoriteRecipe fr = new FavoriteRecipe(id,user.getId(),rd);
 		FRP.save(fr);
 		return mav;
 	}
 	
+	@PostMapping("/removeFavorite")
+	public ModelAndView removeFavorite(@RequestParam("favoriteId") Long id) {
+		ModelAndView mav = new ModelAndView("AccountPage");
+		FRP.deleteById(id);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); 
+		User user = uRep.findByUsername(username);
+		favouriteRecipes=FRP.getByUserID(user.getId());
+		mav.addObject("favorites", favouriteRecipes);		
+		return mav;
+	}
+	
+	  @GetMapping("/login")
+	    public String login() {
+	        return "LoginPage";
+	    }
+	
+	  @GetMapping("/register")
+	  public String registerPage() {
+		  return "RegisterPage";
+	  }
+	  
+	  @PostMapping("/registerUser")
+	  public String registerUser(@RequestParam("Username") String userName,@RequestParam("pass") String pass) {
+		  User u = new User(userName,pass);
+		  uRep.save(u);
+		  return "LoginPage";
+	  }
+	  
 }

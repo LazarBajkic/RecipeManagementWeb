@@ -9,13 +9,15 @@ import jakarta.persistence.Table;
 public class FavoriteRecipe {
 	
 	@Id
-	private Long Id;
+	private Long id;
 	
+	private Long userId;
 	private String name;
 
-	public FavoriteRecipe(Long id, String name) {
+	public FavoriteRecipe(Long id,Long userId, String name) {
 		super();
-		Id = id;
+		this.id=id;
+		this.userId = userId;
 		this.name = name;
 	}
 
@@ -24,7 +26,7 @@ public class FavoriteRecipe {
 	}
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public String getName() {
@@ -34,6 +36,10 @@ public class FavoriteRecipe {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public Long getUserId() {
+		return userId;
 	}
 	
 	

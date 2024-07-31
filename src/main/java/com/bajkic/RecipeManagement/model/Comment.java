@@ -33,6 +33,7 @@ public class Comment {
 	public Comment() {
 		super();
 	}
+	
 	@Override
 	public String toString() {
 		return authorName + " " + commentBody;
