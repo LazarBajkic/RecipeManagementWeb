@@ -1,2 +1,37 @@
 @charset "UTF-8";
 
+RecipeQueryMain{
+			
+}
+
+RecipeQuerySub{
+	
+}
+
+.WelcomeTitle{
+
+}
+
+.RecipeList{
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+a,span{
+	text-decoration: none;
+	color:black;
+}
+
+.RecipeCard{
+	display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+	text-decoration: none;
+	color:black;
+	padding:auto;
+	margin:auto;
+}
+
+AccountUtility{
+	
+}

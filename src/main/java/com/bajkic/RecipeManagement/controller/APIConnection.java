@@ -98,11 +98,10 @@ public class APIConnection {
 		
 		String name = (String) bodyObj.get("name");
 		Long cookTimeMinutes=(Long) bodyObj.get("cook_time_minutes");
-		String description = (String) bodyObj.get("description");
 		Long numOfServings = (Long) bodyObj.get("num_servings");
 		Long prepTimeMinutes = (Long) bodyObj.get("prep_time_minutes");
 		
-		Recipe r = new Recipe(name,description,numOfServings,cookTimeMinutes,prepTimeMinutes);
+		Recipe r = new Recipe(name,numOfServings,cookTimeMinutes,prepTimeMinutes);
 		
 		JSONArray instructions = (JSONArray) bodyObj.get("instructions");
 		HashMap<Long,String> instructionsMap = new HashMap<>(); 

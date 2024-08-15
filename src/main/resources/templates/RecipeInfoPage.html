@@ -6,39 +6,57 @@
 </head>
 <body>
 
-	<div th:each="rd : ${recipeDetails}">
+	<div th:each="rd : ${recipeDetails}" class="RecipeDetails">
+	
 		<p th:text="${rd.toString}"></p>
+	
 	</div>
 	
-	<form th:action="@{/addToFavorites}">
+<form th:action="@{/addToFavorites}">
+    
     <input type="hidden" name="recipe" th:value="${recipeDetails.getRecipeName}" />
     <input type="hidden" name="id" th:value="${recipeId}" />
 	<button>Favorites</button>
+
 </form>
 	
-	<div th:each="ingred : ${ingredients}">
-		<p th:text="${ingred}"></p>
+	<div th:each="ingred : ${ingredients}" class="Ingredients">
+	
+	<p th:text="${ingred}"></p>
+	
 		<a th:href="@{/addToShoppingList(ingredient=${ingred},id=${recipeId})}">
-		<button>Add</button>
+		
+			<button>Add</button>
+		
 		</a>
+	
 	</div>
 
-	<div th:each="tip : ${tipsList}">
+	<div th:each="tip : ${tipsList}" class="Tips">
+	
 		<p th:text="${tip.toString}">
+	
 	</div>
 	
-	<form th:action="@{/addComment}" method="post">
+	<form th:action="@{/addComment}" method="post" class="CommentsForm">
+	
     	<input type="hidden" name="id" th:value="${recipeId}" />
     	<input type="text" id="commentBody" name="commentBody" required />
     	<button type="submit">Add</button>
+	
 	</form>
 
-  <div th:if="${noCommentsMessage}">
+  <div th:if="${noCommentsMessage}" class="NoComments">
+
         <p th:text="${noCommentsMessage}"></p>
-    </div>
-    <div th:each="comment : ${commentList}">
+  
+  </div>
+    
+  <div th:each="comment : ${commentList}" class="Comments">
+  
         <p th:text="${comment.toString}"></p>
-    </div>
+  
+  </div>
     
 </body>
 </html>

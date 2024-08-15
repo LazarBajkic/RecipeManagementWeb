@@ -4,14 +4,12 @@ public class Recipe {
 	
 	private Long id;
 	private String name;
-	private String slug;
 	private Long numOfServings;
 	private Long cookTimeMinutes;
 	private Long prepTimeMinutes;
 	
-	public Recipe(String name,String slug,Long numOfServings,Long cookTimeMinutes,Long prepTimeMinutes) {
+	public Recipe(String name,Long numOfServings,Long cookTimeMinutes,Long prepTimeMinutes) {
 		this.name=name;
-		this.slug=slug;
 		this.numOfServings=numOfServings;
 		this.cookTimeMinutes=cookTimeMinutes;
 		this.prepTimeMinutes=prepTimeMinutes;
@@ -23,7 +21,6 @@ public class Recipe {
 		super();
 		this.id = id;
 		this.name = name;
-		this.slug = slug;
 		this.numOfServings = numOfServings;
 		this.cookTimeMinutes = cookTimeMinutes;
 		this.prepTimeMinutes = prepTimeMinutes;
@@ -36,13 +33,6 @@ public class Recipe {
 	}
 	public String getName() {
 		return name;
-	}
-	
-	public void setSlug(String slug) {
-		this.slug=slug;
-	}
-	public String getSlug() {
-		return slug;
 	}
 	
 	public void setNumOfServings(Long numOfServings) {
@@ -68,11 +58,5 @@ public class Recipe {
 	public Long getId() {
 		return id;
 	}
-
-	@Override
-	public String toString() {
-		return "Name=" + name + "\n\n" + slug + "\n\n Servings=" + numOfServings + "\n\n Cook time (minutes)="
-				+ cookTimeMinutes + "\n\n Prep time (minutes)=" + prepTimeMinutes;
-	}
-	
+		
 }

@@ -5,6 +5,9 @@
 </head>
 <body>
     <h1>Login</h1>
+    
+    <div class="LoginForm">
+    	
     <form th:action="@{/login}" method="post">
         <div>
             <label>Username:</label>
@@ -18,10 +21,13 @@
             <button type="submit">Login</button>
         </div>
     </form>
+    	
+    	<p>Don't have an account?</p>
+   		<a th:href="@{/register}">Register</a>
+    	
+    </div>
     
-    <p>Don't have an account?</p>
-    <a th:href="@{/register}">Register</a>
-    
-    <p th:if="${param.error}">Invalid username or password</p>
+    <p th:if="${param.error}" class="FailedLogin">Invalid username or password</p>
+
 </body>
 </html>

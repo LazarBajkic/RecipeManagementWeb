@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th= "http://www.thymeleaf.org">
 <head>
+<link rel="stylesheet" href="MainCss.css" type="text/css"
+> 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-<div class="RecipeQuery">
+<div class="RecipeQueryMain">
 <form th:action="@{/printMoreRecipes}" method="get">
-	<div>
+	
+	<div class="RecipeQuerySub">
 		
 	<p>How many recipes do you want to be displayed?</p>
 	<input type="number" name="numOfRecipes" id="numOfRecipes">
@@ -18,26 +21,35 @@
 	 	<option th:each="tag : ${tagList}" th:value="${tag}" th:text="${tag}"></option>
 	</select>
 	
-	</div>
-	
-	<div>
-		<p>Enter the recipe name</p>
+	<p>Enter the recipe name</p>
 		<input type="text" name="recipeName" id="recipeName">
 		<button type="submit">Submit</button>
+	
 	</div>
 		
 
 </form>
 
-<p th:text="'Welcome ' +${username}">
+<h2 th:text="'Welcome ' +${username}" class="WelcomeTitle"></h2>
 
 </div>
 
-	<div th:each="r : ${recipeList}">
-		<a th:text="${r.toString}" th:href="@{/recipeInfo(id=${r.id})}"></a>
+	<div th:each="r : ${recipeList}" class="RecipeList">
+		
+		<a th:href="@{/recipeInfo(id=${r.id})}" class="RecipeCard">
+		
+		<span th:text="${r.getName}"></span>
+		<br>
+		<span th:text="'Number of servings '+${r.getNumOfServings}"></span>
+		<br>
+		<span th:text="'Cook time '+${r.getCookTime}"></span>
+		<br>
+		<span th:text="'Prep time '+${r.getPrepTime}"></span>
+			
+		</a>
 	</div>
 
-  <div th:if="${username} != 'anonymousUser'">
+  <div th:if="${username} != 'anonymousUser'" class="AccountUtility">
         <form th:action="@{/logout}" method="post">
             <button type="submit">Logout</button>
         </form>

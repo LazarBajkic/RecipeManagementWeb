@@ -6,17 +6,21 @@
 </head>
 <body>
 
-<form th:action="@{/registerUser}" method="post">
+<div class="RegisterFrom">
 	
-	<p>Username</p>
-	<input type="text" id="Username" name="Username">
+	<form th:action="@{/registerUser}" method="post">
 	
-	<p>Password</p>
-	<input type="password" id="pass" name="pass">
+		<p>Username</p>
+		<input type="text" id="Username" name="Username">
 	
-	<button type="submit">Submit</button>
+		<p>Password</p>
+		<input type="password" id="pass" name="pass">
 	
-</form>
+		<button type="submit">Submit</button>
+	
+	</form>
+	
+</div>
 
 </body>
 </html>
